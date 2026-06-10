@@ -1,0 +1,5 @@
+node_modules/
+.next/
+portfolio.db
+public/uploads/
+.env.local
