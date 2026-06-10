@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Portfolio</string>
+    <string name="tagline">Build Your Brand. Share Your Story.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_projects">Projects</string>
+    <string name="nav_analytics">Analytics</string>
+    <string name="nav_contact">Contact</string>
+
+    <!-- Auth -->
+    <string name="login">Sign In</string>
+    <string name="register">Create Account</string>
+    <string name="logout">Logout</string>
+
+    <!-- Labels -->
+    <string name="hint_name">Full Name</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm">Confirm Password</string>
+    <string name="hint_title">Professional Title (e.g. Full Stack Developer)</string>
+    <string name="hint_bio">About You</string>
+    <string name="hint_location">Location (e.g. Berea, KY)</string>
+    <string name="hint_phone">Phone Number</string>
+    <string name="hint_github">GitHub URL</string>
+    <string name="hint_linkedin">LinkedIn URL</string>
+    <string name="hint_website">Website URL</string>
+    <string name="hint_tech_stack">Tech Stack (comma-separated)</string>
+    <string name="hint_live_url">Live Demo URL</string>
+    <string name="hint_github_url">GitHub Repository URL</string>
+
+    <!-- Actions -->
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="add_project">Add Project</string>
+    <string name="add_skill">Add Skill</string>
+
+    <!-- Analytics -->
+    <string name="analytics_title">Portfolio Analytics</string>
+    <string name="total_projects">Total Projects</string>
+    <string name="total_skills">Total Skills</string>
+    <string name="skills_by_category">Skills by Category</string>
+    <string name="skills_by_level">Skills by Level</string>
+</resources>

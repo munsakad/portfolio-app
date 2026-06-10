@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/brand_primary"
+    android:orientation="vertical" android:gravity="center">
+
+    <ImageView android:layout_width="120dp" android:layout_height="120dp"
+        android:src="@drawable/ic_logo" android:layout_marginBottom="24dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Portfolio" android:textSize="36sp" android:textStyle="bold"
+        android:textColor="@color/brand_accent" android:fontFamily="sans-serif-medium"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Build Your Brand. Share Your Story."
+        android:textSize="14sp" android:textColor="@color/brand_light"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

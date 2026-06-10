@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_dark" android:orientation="vertical">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="20dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Portfolio Analytics" android:textSize="22sp" android:textStyle="bold"
+                android:textColor="@color/text_primary" android:layout_marginBottom="4dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Insights powered by SQL queries"
+                android:textSize="12sp" android:textColor="@color/text_muted"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Stats Row -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="20dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="100dp"
+                    android:layout_weight="1" android:background="@drawable/bg_stat_card"
+                    android:orientation="vertical" android:gravity="center" android:layout_marginEnd="8dp">
+                    <TextView android:id="@+id/tvTotalProjects"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0" android:textSize="36sp" android:textStyle="bold"
+                        android:textColor="@color/brand_accent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Projects" android:textSize="13sp" android:textColor="@color/text_muted"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="100dp"
+                    android:layout_weight="1" android:background="@drawable/bg_stat_card"
+                    android:orientation="vertical" android:gravity="center" android:layout_marginStart="8dp">
+                    <TextView android:id="@+id/tvTotalSkills"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0" android:textSize="36sp" android:textStyle="bold"
+                        android:textColor="@color/brand_accent"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Skills" android:textSize="13sp" android:textColor="@color/text_muted"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Pie Chart: Skills by Category -->
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/surface_card" app:cardCornerRadius="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Skills by Category" android:textSize="15sp"
+                        android:textStyle="bold" android:textColor="@color/brand_accent"
+                        android:layout_marginBottom="12dp"/>
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart" android:layout_width="match_parent"
+                        android:layout_height="260dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Bar Chart: Skills by Level -->
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/surface_card" app:cardCornerRadius="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="16dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Skills by Proficiency Level" android:textSize="15sp"
+                        android:textStyle="bold" android:textColor="@color/brand_accent"
+                        android:layout_marginBottom="12dp"/>
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChart" android:layout_width="match_parent"
+                        android:layout_height="240dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:background="@color/surface_card"
+        app:menu="@menu/bottom_nav_menu" app:itemTextColor="@color/brand_accent"
+        app:itemIconTint="@color/brand_accent"/>
+</LinearLayout>

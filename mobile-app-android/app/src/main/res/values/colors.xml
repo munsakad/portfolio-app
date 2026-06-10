@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ══════════════════════════════════════════
+         PERSONAL BRAND KIT — Color Palette
+         Primary:   Deep Navy   #03045E
+         Secondary: Ocean Blue  #0077B6
+         Accent:    Cyan        #00B4D8
+         Light:     Sky Cyan    #90E0EF
+         Surface:   Dark Card   #1A1A2E
+    ══════════════════════════════════════════ -->
+
+    <!-- Brand Primary -->
+    <color name="brand_primary">#03045E</color>
+    <color name="brand_secondary">#0077B6</color>
+    <color name="brand_accent">#00B4D8</color>
+    <color name="brand_light">#90E0EF</color>
+    <color name="brand_extra_light">#CAF0F8</color>
+
+    <!-- Surfaces -->
+    <color name="surface_dark">#1A1A2E</color>
+    <color name="surface_card">#16213E</color>
+    <color name="surface_elevated">#0F3460</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#90E0EF</color>
+    <color name="text_muted">#8899AA</color>
+
+    <!-- Status -->
+    <color name="success">#06D6A0</color>
+    <color name="warning">#FFB703</color>
+    <color name="error">#EF233C</color>
+
+    <!-- Skill Level Colors -->
+    <color name="level_expert">#06D6A0</color>
+    <color name="level_advanced">#00B4D8</color>
+    <color name="level_intermediate">#FFB703</color>
+    <color name="level_beginner">#8899AA</color>
+
+    <!-- Android System -->
+    <color name="colorPrimary">@color/brand_secondary</color>
+    <color name="colorPrimaryDark">@color/brand_primary</color>
+    <color name="colorAccent">@color/brand_accent</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

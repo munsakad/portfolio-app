@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_dark" android:orientation="vertical">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="24dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_card" android:orientation="vertical"
+                android:gravity="center" android:padding="28dp" android:layout_marginBottom="20dp">
+                <TextView android:id="@+id/tvInitials" android:layout_width="80dp"
+                    android:layout_height="80dp" style="@style/AvatarText" android:layout_marginBottom="14dp"/>
+                <TextView android:id="@+id/tvName" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textSize="22sp"
+                    android:textStyle="bold" android:textColor="@color/text_primary"
+                    android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tvTitle" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textSize="14sp"
+                    android:textColor="@color/brand_accent"/>
+            </LinearLayout>
+
+            <!-- Contact Details -->
+            <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/surface_card" app:cardCornerRadius="16dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:padding="20dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Contact Details" android:textSize="15sp" android:textStyle="bold"
+                        android:textColor="@color/brand_accent" android:layout_marginBottom="14dp"/>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="10dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="✉  " android:textSize="14sp" android:textColor="@color/text_muted"/>
+                        <TextView android:id="@+id/tvEmail" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginBottom="10dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="📍  " android:textSize="14sp" android:textColor="@color/text_muted"/>
+                        <TextView android:id="@+id/tvLocation" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="📞  " android:textSize="14sp" android:textColor="@color/text_muted"/>
+                        <TextView android:id="@+id/tvPhone" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:textSize="14sp"
+                            android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Action Buttons -->
+            <Button android:id="@+id/btnEmail" android:layout_width="match_parent"
+                android:layout_height="52dp" android:text="✉  Send Email"
+                android:background="@drawable/bg_button" android:textColor="@color/brand_primary"
+                android:textStyle="bold" android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnGithub" android:layout_width="match_parent"
+                android:layout_height="52dp" android:text="🐙  GitHub"
+                android:background="@drawable/bg_card" android:textColor="@color/text_primary"
+                android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnLinkedin" android:layout_width="match_parent"
+                android:layout_height="52dp" android:text="🔗  LinkedIn"
+                android:background="@drawable/bg_card" android:textColor="@color/text_primary"
+                android:layout_marginBottom="10dp"/>
+            <Button android:id="@+id/btnWebsite" android:layout_width="match_parent"
+                android:layout_height="52dp" android:text="🌐  Website"
+                android:background="@drawable/bg_card" android:textColor="@color/text_primary"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:background="@color/surface_card"
+        app:menu="@menu/bottom_nav_menu" app:itemTextColor="@color/brand_accent"
+        app:itemIconTint="@color/brand_accent"/>
+</LinearLayout>

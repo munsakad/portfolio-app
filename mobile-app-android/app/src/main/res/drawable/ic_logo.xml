@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Brand logo: stylised P in a circle -->
+    <path android:fillColor="#03045E"
+        android:pathData="M0,0 H108 V108 H0 Z"/>
+    <path android:fillColor="#00B4D8"
+        android:pathData="M54,10 A44,44 0 1,1 53.99,10 Z"/>
+    <path android:fillColor="#03045E"
+        android:pathData="M38,30 L38,78 L48,78 L48,60 L60,60 C70,60 76,54 76,45 C76,36 70,30 60,30 Z
+                           M48,38 L60,38 C64,38 66,41 66,45 C66,49 64,52 60,52 L48,52 Z"/>
+</vector>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_dark" android:orientation="vertical">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="20dp">
+
+            <!-- Avatar Header -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center" android:padding="20dp"
+                android:background="@drawable/bg_card" android:layout_marginBottom="20dp">
+                <TextView android:id="@+id/tvInitials" android:layout_width="80dp"
+                    android:layout_height="80dp" style="@style/AvatarText" android:layout_marginBottom="12dp"/>
+                <TextView android:id="@+id/tvEmail" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:textSize="13sp"
+                    android:textColor="@color/text_muted"/>
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Personal Info" android:textSize="16sp" android:textStyle="bold"
+                android:textColor="@color/brand_accent" android:layout_marginBottom="12dp"/>
+
+            <EditText android:id="@+id/etName" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="Full Name"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="12dp"/>
+            <EditText android:id="@+id/etTitle" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="Professional Title"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="12dp"/>
+            <EditText android:id="@+id/etBio" android:layout_width="match_parent"
+                android:layout_height="100dp" android:hint="About You"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:gravity="top" android:inputType="textMultiLine"
+                android:layout_marginBottom="12dp"/>
+            <EditText android:id="@+id/etLocation" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="Location"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="12dp"/>
+            <EditText android:id="@+id/etPhone" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="Phone Number" android:inputType="phone"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="20dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Social Links" android:textSize="16sp" android:textStyle="bold"
+                android:textColor="@color/brand_accent" android:layout_marginBottom="12dp"/>
+
+            <EditText android:id="@+id/etGithub" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="GitHub URL" android:inputType="textUri"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="12dp"/>
+            <EditText android:id="@+id/etLinkedin" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="LinkedIn URL" android:inputType="textUri"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="12dp"/>
+            <EditText android:id="@+id/etWebsite" android:layout_width="match_parent"
+                android:layout_height="56dp" android:hint="Website URL" android:inputType="textUri"
+                android:background="@drawable/bg_card" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textColorHint="@color/text_muted"
+                android:layout_marginBottom="20dp"/>
+
+            <Button android:id="@+id/btnSave" android:layout_width="match_parent"
+                android:layout_height="56dp" android:text="Save Profile"
+                android:background="@drawable/bg_button" android:textColor="@color/brand_primary"
+                android:textStyle="bold" android:textSize="16sp" android:layout_marginBottom="24dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:text="My Skills"
+                    android:textSize="16sp" android:textStyle="bold" android:textColor="@color/brand_accent"/>
+                <Button android:id="@+id/btnAddSkill" android:layout_width="wrap_content"
+                    android:layout_height="36dp" android:text="+ Add Skill"
+                    android:background="@drawable/bg_button" android:textColor="@color/brand_primary"
+                    android:textSize="12sp" android:paddingLeft="16dp" android:paddingRight="16dp"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSkills"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:background="@color/surface_card"
+        app:menu="@menu/bottom_nav_menu" app:itemTextColor="@color/brand_accent"
+        app:itemIconTint="@color/brand_accent"/>
+</LinearLayout>
