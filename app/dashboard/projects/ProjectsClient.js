@@ -1,7 +1,23 @@
 'use client'
 import { useState, useRef } from 'react'
 
-const empty = { title: '', description: '', tech_stack: '', live_url: '', github_url: '', image_url: '' }
+const PROJECT_CATEGORIES = [
+  'Web Development',
+  'Mobile Development',
+  'Graphic Design',
+  'Data Analysis',
+  'Other',
+]
+
+const empty = {
+  title: '',
+  description: '',
+  tech_stack: '',
+  live_url: '',
+  github_url: '',
+  image_url: '',
+  category: 'Web Development',
+}
 
 export default function ProjectsClient({ initialProjects }) {
   const [projects, setProjects] = useState(initialProjects)
@@ -12,6 +28,8 @@ export default function ProjectsClient({ initialProjects }) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
   const [preview, setPreview] = useState('')
+  const [search, setSearch] = useState('')
+  const [filterCategory, setFilterCategory] = useState('')
   const fileRef = useRef()
 
   function update(field, value) {
@@ -26,11 +44,13 @@ export default function ProjectsClient({ initialProjects }) {
       live_url: project.live_url,
       github_url: project.github_url,
       image_url: project.image_url || '',
+      category: project.category || 'Other',
     })
     setPreview(project.image_url || '')
     setEditId(project.id)
     setShowForm(true)
     setError('')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   function cancelForm() {
@@ -91,11 +111,25 @@ export default function ProjectsClient({ initialProjects }) {
     if (res.ok) setProjects(prev => prev.filter(p => p.id !== id))
   }
 
+  // Client-side search + filter
+  const filtered = projects.filter(p => {
+    const q = search.toLowerCase()
+    const matchSearch = !q ||
+      p.title.toLowerCase().includes(q) ||
+      (p.tech_stack || '').toLowerCase().includes(q) ||
+      (p.description || '').toLowerCase().includes(q)
+    const matchCategory = !filterCategory || p.category === filterCategory
+    return matchSearch && matchCategory
+  })
+
+  const usedCategories = [...new Set(projects.map(p => p.category).filter(Boolean))]
+
   const inputClass = "w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm"
   const labelClass = "block text-sm font-medium text-slate-300 mb-1.5"
 
   return (
     <div className="space-y-6">
+      {/* Add / Edit Form */}
       {showForm ? (
         <form onSubmit={handleSubmit} className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
           <h2 className="font-semibold mb-5 text-lg">{editId ? 'Edit Project' : 'New Project'}</h2>
@@ -107,23 +141,34 @@ export default function ProjectsClient({ initialProjects }) {
           )}
 
           <div className="space-y-4">
-            <div>
-              <label className={labelClass}>Title *</label>
-              <input type="text" required className={inputClass}
-                value={form.title} onChange={e => update('title', e.target.value)} placeholder="Project name" />
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>Title *</label>
+                <input type="text" required className={inputClass}
+                  value={form.title} onChange={e => update('title', e.target.value)} placeholder="Project name" />
+              </div>
+              <div>
+                <label className={labelClass}>Category</label>
+                <select className={inputClass} value={form.category} onChange={e => update('category', e.target.value)}>
+                  {PROJECT_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
             </div>
+
             <div>
               <label className={labelClass}>Description</label>
               <textarea rows={3} className={inputClass}
                 value={form.description} onChange={e => update('description', e.target.value)}
                 placeholder="What does this project do?" />
             </div>
+
             <div>
               <label className={labelClass}>Tech Stack</label>
               <input type="text" className={inputClass}
                 value={form.tech_stack} onChange={e => update('tech_stack', e.target.value)}
                 placeholder="e.g. React, Node.js, PostgreSQL (comma-separated)" />
             </div>
+
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className={labelClass}>Live URL</label>
@@ -177,21 +222,72 @@ export default function ProjectsClient({ initialProjects }) {
           </div>
         </form>
       ) : (
-        <button onClick={() => { setShowForm(true); setEditId(null); setForm(empty); setPreview('') }}
-          className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold px-5 py-2.5 rounded-lg transition text-sm">
+        <button
+          onClick={() => { setShowForm(true); setEditId(null); setForm(empty); setPreview('') }}
+          className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold px-5 py-2.5 rounded-lg transition text-sm"
+        >
           + Add Project
         </button>
       )}
 
-      {projects.length === 0 && !showForm && (
-        <div className="text-center py-16 text-slate-500">
-          <p className="text-lg mb-2">No projects yet</p>
-          <p className="text-sm">Click "Add Project" to get started.</p>
+      {/* Search & Filter Bar */}
+      {projects.length > 0 && (
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search by name, tech, or description..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-9 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm"
+            />
+          </div>
+          <select
+            value={filterCategory}
+            onChange={e => setFilterCategory(e.target.value)}
+            className="bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm sm:w-52"
+          >
+            <option value="">All Categories</option>
+            {usedCategories.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+          {(search || filterCategory) && (
+            <button
+              onClick={() => { setSearch(''); setFilterCategory('') }}
+              className="text-sm text-slate-400 hover:text-white transition px-3"
+            >
+              Clear
+            </button>
+          )}
         </div>
       )}
 
+      {/* Results count when filtering */}
+      {(search || filterCategory) && (
+        <p className="text-sm text-slate-500">
+          {filtered.length} {filtered.length === 1 ? 'project' : 'projects'} found
+        </p>
+      )}
+
+      {/* Empty state */}
+      {projects.length === 0 && !showForm && (
+        <div className="text-center py-16 text-slate-500">
+          <p className="text-lg mb-2">No projects yet</p>
+          <p className="text-sm">Click &quot;Add Project&quot; to get started.</p>
+        </div>
+      )}
+
+      {filtered.length === 0 && projects.length > 0 && (
+        <div className="text-center py-12 text-slate-500">
+          <p>No projects match your search.</p>
+        </div>
+      )}
+
+      {/* Project Cards */}
       <div className="space-y-4">
-        {projects.map(project => (
+        {filtered.map(project => (
           <div key={project.id} className="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
             {project.image_url && (
               <img src={project.image_url} alt={project.title} className="w-full h-48 object-cover" />
@@ -199,7 +295,14 @@ export default function ProjectsClient({ initialProjects }) {
             <div className="p-6">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-lg mb-1">{project.title}</h3>
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <h3 className="font-bold text-lg">{project.title}</h3>
+                    {project.category && (
+                      <span className="text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full shrink-0">
+                        {project.category}
+                      </span>
+                    )}
+                  </div>
                   {project.description && (
                     <p className="text-slate-400 text-sm mb-3">{project.description}</p>
                   )}
@@ -212,10 +315,10 @@ export default function ProjectsClient({ initialProjects }) {
                   )}
                   <div className="flex gap-3">
                     {project.live_url && (
-                      <a href={project.live_url} target="_blank" className="text-xs text-cyan-400 hover:underline">Live Demo ↗</a>
+                      <a href={project.live_url} target="_blank" rel="noreferrer" className="text-xs text-cyan-400 hover:underline">Live Demo ↗</a>
                     )}
                     {project.github_url && (
-                      <a href={project.github_url} target="_blank" className="text-xs text-slate-400 hover:text-slate-200 hover:underline">GitHub ↗</a>
+                      <a href={project.github_url} target="_blank" rel="noreferrer" className="text-xs text-slate-400 hover:text-slate-200 hover:underline">GitHub ↗</a>
                     )}
                   </div>
                 </div>

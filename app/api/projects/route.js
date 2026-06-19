@@ -18,14 +18,14 @@ export async function POST(request) {
   const user = getAuthUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { title, description, tech_stack, live_url, github_url, image_url } = await request.json()
+  const { title, description, tech_stack, live_url, github_url, image_url, category } = await request.json()
 
   if (!title) return NextResponse.json({ error: 'Title is required' }, { status: 400 })
 
   const db = getDb()
   const result = db.prepare(
-    'INSERT INTO projects (user_id, title, description, tech_stack, live_url, github_url, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)'
-  ).run(user.id, title, description || '', tech_stack || '', live_url || '', github_url || '', image_url || '')
+    'INSERT INTO projects (user_id, title, description, tech_stack, live_url, github_url, image_url, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+  ).run(user.id, title, description || '', tech_stack || '', live_url || '', github_url || '', image_url || '', category || 'Other')
 
   const project = db.prepare('SELECT * FROM projects WHERE id = ?').get(result.lastInsertRowid)
   return NextResponse.json(project, { status: 201 })
