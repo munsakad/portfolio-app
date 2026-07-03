@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import getDb from '@/lib/db'
 import { getAuthUser } from '@/lib/auth'
+import { logActivity, notify } from '@/lib/activity'
 
 export async function GET() {
   const user = getAuthUser()
@@ -24,6 +25,9 @@ export async function PUT(request) {
   db.prepare(
     'UPDATE users SET name=?, title=?, bio=?, github=?, linkedin=?, website=?, location=?, avatar_url=? WHERE id=?'
   ).run(name, title, bio, github, linkedin, website, location, avatar_url || '', user.id)
+
+  logActivity(user.id, 'profile_updated', 'user', 'Updated profile information')
+  notify(user.id, 'Profile updated', 'Your profile information was saved.')
 
   return NextResponse.json({ message: 'Profile updated' })
 }

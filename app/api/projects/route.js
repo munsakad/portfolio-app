@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import getDb from '@/lib/db'
 import { getAuthUser } from '@/lib/auth'
+import { logActivity, notify } from '@/lib/activity'
 
 export async function GET() {
   const user = getAuthUser()
@@ -28,5 +29,9 @@ export async function POST(request) {
   ).run(user.id, title, description || '', tech_stack || '', live_url || '', github_url || '', image_url || '', category || 'Other')
 
   const project = db.prepare('SELECT * FROM projects WHERE id = ?').get(result.lastInsertRowid)
+
+  logActivity(user.id, 'project_created', 'project', `Created project "${project.title}"`)
+  notify(user.id, 'Project created', `"${project.title}" was added to your portfolio.`)
+
   return NextResponse.json(project, { status: 201 })
 }

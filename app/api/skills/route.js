@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import getDb from '@/lib/db'
 import { getAuthUser } from '@/lib/auth'
+import { logActivity } from '@/lib/activity'
 
 export async function GET() {
   const user = getAuthUser()
@@ -27,5 +28,8 @@ export async function POST(request) {
   ).run(user.id, name, category || 'General', level || 'Intermediate')
 
   const skill = db.prepare('SELECT * FROM skills WHERE id = ?').get(result.lastInsertRowid)
+
+  logActivity(user.id, 'skill_created', 'skill', `Added skill "${skill.name}"`)
+
   return NextResponse.json(skill, { status: 201 })
 }

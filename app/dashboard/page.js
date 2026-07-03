@@ -14,8 +14,22 @@ export default function DashboardPage() {
   const recentProjects = db.prepare(
     'SELECT * FROM projects WHERE user_id = ? ORDER BY created_at DESC LIMIT 4'
   ).all(user.id)
+  const recentActivity = db.prepare(
+    'SELECT * FROM activity_log WHERE user_id = ? ORDER BY created_at DESC LIMIT 6'
+  ).all(user.id)
 
   const isEmpty = totalProjects === 0 && totalSkills === 0
+
+  function timeAgo(dateString) {
+    const seconds = Math.floor((Date.now() - new Date(dateString + 'Z').getTime()) / 1000)
+    if (seconds < 60) return 'just now'
+    const minutes = Math.floor(seconds / 60)
+    if (minutes < 60) return `${minutes}m ago`
+    const hours = Math.floor(minutes / 60)
+    if (hours < 24) return `${hours}h ago`
+    const days = Math.floor(hours / 24)
+    return `${days}d ago`
+  }
 
   return (
     <div className="space-y-8 max-w-5xl">
@@ -94,6 +108,21 @@ export default function DashboardPage() {
                 {p.tech_stack && (
                   <p className="text-xs text-slate-600 truncate">{p.tech_stack}</p>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Recent Activity */}
+      {recentActivity.length > 0 && (
+        <div>
+          <h2 className="font-semibold mb-4">Recent Activity</h2>
+          <div className="bg-slate-800 border border-slate-700 rounded-2xl divide-y divide-slate-700">
+            {recentActivity.map(a => (
+              <div key={a.id} className="flex items-center justify-between gap-4 px-5 py-3.5">
+                <p className="text-sm text-slate-300">{a.description}</p>
+                <span className="text-xs text-slate-500 shrink-0">{timeAgo(a.created_at)}</span>
               </div>
             ))}
           </div>

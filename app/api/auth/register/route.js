@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import getDb from '@/lib/db'
 import { signToken } from '@/lib/auth'
+import { logActivity, notify } from '@/lib/activity'
 
 export async function POST(request) {
   try {
@@ -27,6 +28,9 @@ export async function POST(request) {
     ).run(name, email, hashed)
 
     const token = signToken({ id: result.lastInsertRowid, email, name })
+
+    logActivity(result.lastInsertRowid, 'account_created', 'user', 'Account created')
+    notify(result.lastInsertRowid, 'Welcome!', `Welcome to your portfolio dashboard, ${name}.`)
 
     const response = NextResponse.json({ message: 'Registered successfully' }, { status: 201 })
     response.cookies.set('token', token, {
